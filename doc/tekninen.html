@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" media="screen" href="tyyli.css" />
+		<title>Draw - Tekninen suunnitelma</title>
+	</head>
+	<body>
+		<div id="main">
+
+			<div class="center">
+				T-106.1243 Ohjelmoinnin jatkokurssi L1 (Java) - Projekti
+
+				<h1>Tekninen suunnitelma<br/>
+				Piirustusohjelma <em>Draw</em></h1>
+				<p>
+				Alex Lagerstedt | 69482W | EST 3.vsk | 22.2.2010
+				</p>
+			</div>
+
+			<h2>Ohjelman rakennesuunnitelma</h2>
+			<p>
+			Ohjelman perusta tulee oleman piirrettyä kuvaa kuvaavaa Picture-luokka. Se sisältää erilaisia muotoja jotka periytyvät yhteisestä Shape-luokasta (tai toteuttavat Shape-rajapinnan).  Kuvasta luodaan draw()-metodilla Graphics-olio jonka GUI:n sisältämä Canvas pystyy piirtämään.
+			<p><img src="graph.png" alt="ui sketch" class=
+			"center" /></p>
+			</p>
+			<!--
+			Suunnitelman tärkein osuus. Ohjelman erottelu tärkeimpiin osakokonaisuuksiinsa, suunnitellun luokkajaon esittely. Minkälaisilla luokilla kuvaat ohjelman ongelma-aluetta? Mitä ongelman osaa kukin luokka mallintaa? Mitkä ovat luokkien väliset suhteet? Entä millaisia luokkia tarvitaan ohjelman käyttöliittymän kuvaamiseen? Miettikää mahdollisia muita ratkaisumalleja ja perustele valittu ratkaisu. Jos suinkin mahdollista, liittäkää mukaan jonkinlainen graafinen luokkakaavio (voitte käyttää esim. UML-luokkakaavionotaatiota, mutta se ei ole millään muotoa pakollista). Esittele luokkien keskeiset metodit. Huom. oleellista on vain se, mitä metodeilla tehdään, ei se, miten ne sisäisesti toimivat.-->
+
+			<h2>Käyttötapauskuvaus</h2>
+			<p>
+			Tyypillisessä ohjelman käyttötapauksessa käyttäjä avaa aikasemmin tallenetun kuvan, tekee siihen pieniä muutoksia ja tallentaa kuvan uudestaan.
+Avaamisvaiheessa käyttäjä avaa valikosta tiedostonvalintadialogin. Käyttäjä valitsee haluamansa tiedoston ja ohjelma kutsuu kuvanlatausmetodia tiedostolle. Kuvanlatausmetodi käy SVG-tiedostoa läpi rivi riviltä ja tunnistaa siihen tallenetut piirto-objektit. Se luo uuden kuvaluokan ja lisää siihen tiedostosta löytyneessä järjestyksessä uudet Shape-oliot. Käyttöliittymä pyytää kuvaa piirtämään itsensä sille osoitettuun tilaan ja ohjelma jää odottamaan syötettä.
+Käyttäjä voi lisätä kuvaan uusia muotoja jolloin ne laitetaan kuvaluokkaan aina päälimmäiseksi olioksi. Käyttäjä voi myös valita aikaisemmin piirrettyjä Shape-olioita ja muuttaa vaikkapa niiden väriä jolloin kutsutaan kyseisen olion värinmuutosmetodia.
+Lopuksi käyttäjä tallentaa tiedoston joko entisen päälle tai uuteen tiedostoon valikon kautta. Kirjoitusmetodi käy kuvan oliot läpi alimmasta alkaen ja lisää vastaavan merkinnän tiedostoon.
+			</p>
+			<!--
+			Esittäkää ainakin yksi realistinen ohjelman käyttötapaus, eli kuvaus tilanteesta, jossa käyttäjä käynnistää ohjelman ja tekee sillä joitakin ohjelmalle tyypillisiä asioita. Kertokaa sekä se, mitä toimenpiteitä käyttäjän on suoritettava päämääriensä saavuttamiseksi (eli minkä käyttöliittymän osien kanssa tämä on tekemisissä ja miten), että se, mitkä ohjelmanne osat aktivoituvat kussakin vaiheessa "kulissien takana" ja suorittavat tarvittavat tehtävät. Koodiyksityiskohdat eivät ole tässä kiinnostavia, vaan korkeamman tason työnjako.
+			-->
+
+			<h2>Algoritmit</h2>
+			<p>
+Draw käyttää hyvin yksinkertaista listarakennetta piirroksen kuvaamiseen joten monimutkaisempia itse toteutettavia algoritmeja ei toteuteta. Kaikki tarvittavat algoritmit löytyvät käytettyjen  tietorakenteiden toteutuksen sisältä.
+			</p>
+			<!--
+			Sanallinen kuvaus käyttämistänne algoritmeista, eli siitä miten ohjelma suorittaa tarvittavat tehtävät. Esim. miten tarvittava matemaattinen laskenta tapahtuu (kaavat mukaan)? Miten algoritminne löytää lyhimmän tiereitin kahden kaupungin välille? Miten toteuttamanne pelin tekoäly toimii? Kaavioita tms. voi käyttää apuna tarpeen mukaan. Mitä muita ratkaisuvaihtoehtoja olisi ollut? Perustelkaa valintanne!-->
+			Tässä kohdassa on siis tarkoitus selostaa ne periaatteet, joilla ongelmat voidaan ratkaista, ei sitä, miten algoritmit koodataan. Siis ei luokkien tai metodien kuvauksia tai muitakaan Javaan tai ohjelmakoodiin liittyviä seikkoja tänne! (Vielä rautalangasta: älkää mainitko tässä mitään siitä, millaisilla metodeilla algoritmi saadaan toimimaan, millaisia silmukkarakenteita tarvitsee kirjoittaa, tms. Nämä ovat toteutusteknisiä yksityiskohtia, jotka eivät ole tämän osion, eivätkä oikeastaan koko projektisuunnitelman kannalta kiinnostavia.) Jos ohjelmassa on tarkoitus käyttää joitakin yleisesti tunnettuja algoritmeja kannattaa toki mainita algoritmit nimeltä.
+
+			<h2>Tietorakenteet</h2>
+			<p>
+Kuva toteutetaan sisäisesti Shape-luokan olioita sisältävänä ArrayListinä. Dynaamista koon muutosta tarvitaan koska kuvan sisältämää muotojen määrää ei voida tietää ennalta eikä myöskään haluta rajata.
+Muita vaihtoehtoja ovat javan Vector-luokka ja mahdollisesti LinkedList.
+			</p>
+			<!--
+			Minkälaiset kokoelmatyypit/tietorakenteet soveltuvat parhaiten ohjelmassa tarvittavan tiedon varastoimiseen ja käsittelyyn? Miksi? Mitä muita valintamahdollisuuksia olisi ollut? Tarvitsetteko dynaamisia rakenteita (so. muuttuvan kokoisia, esim. listat) vai riittävätkö esim. taulukot? Kun käytätte Javan valmiita tietorakenteita, ei niiden tarkkaa määrittelyä tarvitse esittää, kunhan perustelee miksi minkäkin rakenteen on valinnut. Jos taas ohjelmoitte itse jonkin tietorakenteen, on myös sen toimintatapa selostettava.
+			-->
+
+			<h2>Aikataulu</h2>
+			<p>
+			Toteutusjärjestys:
+			<ul>
+				<li>Yksinkertainen testikäyttöliittymä joka piirtää näytölle jotain - toteutettu</li>
+			<li>Shape abstraktina luokkana tai rajapintana ja yksi sen perivä tai toteuttava muoto ~3h</li>
+			<li>Picture-luokka ja sen piirtäminen käyttöliittymään ~3h</li>
+			<li>Työkalu jolla voi lisätä hiirellä Shape-olioita kuvaan ~3h</li>
+			<li>Undo ja redo-mahdollisuus kaikille kuvaan vaikuttaville toiminnoille ~3h</li>
+			<li>Tallenus ja lataus tiedostosta ~5h</li>
+			<li>Muita muotoja ja lisäominaisuuksia, värit ~5h</li>
+			<li>Useamman olion valitseminen ja muokkaus ~5h</li>
+			<li>Testausta ja hienosäätöä ~8h</li>
+			</ul>
+			</p>
+			<!--
+			Yrittäkää hahmotella itsellenne aikataulu ja karkea arvio eri vaiheissa kuluvista työtunneista. Se on vaikeaa, mutta opettavaista, kun aikataulua vertaa käytännössä eri vaiheisiin kuluvaan todelliseen aikaan. Älkää heittäkö suunnitelmaan mitä tahansa ensiksi mieleen tulevia lukuja vaan yrittäkää arvioida tilannetta realistisesti.
+
+			Kuvatkaa myös suunniteltu etenemisjärjestys, eli missä järjestyksessä ohjelmanne aiotte toteuttaa. Tässä kannattaa jo miettiä ohjelman testausta, ja sitä, mitkä osat muusta koodista käyttävät muita osia. Yleensä ohjelmassa on keskeisiä ominaisuuksia joista kannattaa aloittaa, sekä ominaisuuksia, joiden toteutus ei ole heti olennaista. Muista että kehitettäessä jotkin asiat voidaan korvata tynkäluokilla tai tynkämetodeilla, jotta ohjelma saadaan kääntymään, ja jotta toteutettua koodia voi testata. Kokonaisia luokkia ei myöskään tarvitse toteuttaa alusta loppuun vaan tarkentaa toteutusta aste asteelta, kun työ etenee.
+			-->
+
+			<h2>Yksikkötestaussuunnitelma</h2>
+			<p>
+Käyttöliittymä on hyvin keskeinen osa ohjelmaa ja sen yksikkötestaus on hankalaa. Myös hiirisyötteiden ja piirrettävien kuvien oikeellisuutta on käytännössä mahdotonta testata ohjelmallisesti.
+Yksikkötestaus tulee keskittymään Shape-luokkaan ja siitä periytyvien luokkien toteutukseen, Picture-luokan metodeihin sekä tiedostojen lukemiseen ja kirjoittamiseen.
+Shape-luokan yksikkötestit pyritään toteuttamaan mahdollisimman aikaisessa vaiheessa jotta uusien muotojen toteuttaminen ei tuota ihmeellisiä lisävirheitä kuvaa käsiteltäessä.
+			</p>
+			<!--
+			Kuvatkaa tässä osiossa kuinka aiotte testata ohjelman keskeisimpiä osia toteutuksen edetessä. Koko ohjelman kaikkia ominaisuuksia ei ole tarkoitus käydä läpi, vaan keskittyä tässä ehkä ohjelman "ydinmetodeihin", jotka tekevät sen keskeisimmän työn. Kuvatkaa jälleen yleisluontoisesti, kuinka aiotte metodeja (valitkaa muutama) niiden valmistuttua kokeilla. Jälleen voi esittää keskeisiä syötteitä joilla ohjelman tulee toimia, mitä metodin tulee tällöin palauttaa ja mikä sen vaikutus ohjelman olioihin tulee olla. Vastaavasti voi pohtia sitä, kuinka metodeja voisi testata helposti ilman että tarvitsee toteuttaa valtavia apurakennelmia. (valitettavasti näiltä ei voi aina välttyä) Yksikkötestausta kannattaa sitten projektia toteuttaessa tehdä sopivassa määrin, jotta ei turhaan joudu etsimään bugia uusista koodiriveistä, kun virhe onkin jossain joka tehtiin aikaa sitten.
+			-->
+
+			<h2>Kirjallisuusviitteet ja linkit</h2>
+			<p>
+			Internet tulee olemaan ehdottomasti tärkein tiedonlähde ohjelman toteutuksessa. Käytettyjen linkkien lista kasvanee melko samaan tahtiin itse projektin kanssa.
+
+			</p>
+			
+			<ul>
+				<li>Käyttöliittymä ja piirtäminen
+				<ul>
+					<li><a href="http://java.sun.com/javase/6/docs/api/">Java SE 6 API</a></li>
+				<li>http://java.sun.com/docs/books/tutorial/2d/</li>
+				</ul>
+				</li>
+				<li>Tiedostojen lataaminen ja kirjoittaminen
+				<ul>
+				<li>http://java.sun.com/webservices/reference/tutorials/jaxp/html/sax.html</li>
+				</ul>
+				</li>
+				<li>Vektorigrafiikkaa
+				<ul>
+				<li>http://en.wikipedia.org/wiki/Vector_graphics</li>
+				<li>http://en.wikipedia.org/wiki/Scalable_Vector_Graphics</li>
+				<li>http://www.w3.org/TR/SVG11/</li>
+				<li>http://www.w3.org/TR/SVGTiny12/</li>
+				</ul>
+				</li>
+			</ul>
+			<!--
+			Suunnitteluvaiheessa on syytä selvittää, millaista aiheeseenne liittyvää materiaalia on tarjolla. Kirjastot ja nettihakukoneet ovat resursseja, joita kannattaa hyödyntää. Kertokaa tässä, mitä kirjoja, nettisivuja tai muuta materiaalia olette jo käyttäneet tai suunnitelleet myöhemmin käyttävänne. Kaikki lähteet tulee ilmoittaa, vaikka niihin kuuluisivat pelkkä kurssilla käyttämänne oppikirja ja Javan perusluokkakirjastojen API-kuvaus.
+			-->
+
+			<!--
+			<h2>Liitteet</h2>
+			<p></p>
+			Lisäksi suunnitelmassa saa olla liitteitä, aiheesta riippuen.
+			-->
+
+			<div id="footer">
+				22.2.2010
+				<div class="right">
+					Alex Lagerstedt 69482W
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+

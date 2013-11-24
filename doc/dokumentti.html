@@ -1,0 +1,328 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="tyyli.css" />
+		<title>Draw - Dokumentaatio</title>
+	</head>
+	<body>
+		<div id="main">
+
+			<div class="center">
+				T-106.1243 Ohjelmoinnin jatkokurssi L1 (Java) - Projekti
+
+				<h1>Dokumentaatio<br />Piirustusohjelma <em>Draw</em></h1>
+				Alex Lagerstedt |
+				69482W | EST 3.vsk | 25.4.2010
+			</div>
+
+
+
+			<h2>Yleiskuvaus</h2>
+			<p><em>Draw</em> on yksinkertainen graafinen, ensisijaisesti hiirellä
+			käytettävä ja vektoripohjainen piirustusohjelma.</p>
+
+			<p>Ominaisuuksia:
+			</p>
+
+			<ul>
+				<li>Uusien eri kokoisten piirustusten luominen</li>
+				<li>Editoitavan piirustuksen tallennus ja tallennettujen kuvien
+				avaaminen ohjelman omaa tiedostomuotoa käyttäen</li>
+				<li>Hiirellä piirrettäviä muotoja
+				<ul>
+					<li>Viivat</li>
+					<li>Ympyrät ja ellipsit</li>
+					<li>Neliöt ja suorakulmiot</li>
+				</ul>
+				</li>
+				<li>Tekstin lisääminen piirustukseen</li>
+				<li>Värit kaikille eri muodoille</li>
+				<li>Muotojen täyttäminen värillä</li>
+				<li>Yhden tai useamman muodon valitseminen</li>
+				<li>Valittujen muotojen muokkaaminen ja liikuttaminen</li>
+				<li>Rajaton undo ja redo-ominaisuus</li>
+				<li>Piirustuksen vienti PNG-tiedostoksi</li>
+
+			</ul>
+
+			<p> Ohjelma on toteutettu vaativan tasoisena ja se toteuttaa kaikki <a href="http://www.cs.hut.fi/Opinnot/T-106.1240/2010_external/projekti/aiheet2010/151ed.html">tehtävänannon</a> vaatimukset.</p>
+
+
+
+			<h2>Käyttöohje</h2>
+			<p>Ohjelman käyttöliittymä on hyvin perinteinen ja samantapainen muiden piirustusohjelmien kanssa. Kaikkia ominaisuuksia voidaan käyttää hiirellä, ja kaikille päävalikon takaa löytyville toiminnoille on määritelty näppäimistöoikotiet.</p>
+			<img src="shot.png" alt="screenshot"/>
+			<p>Vasemmanpuoleisen työkalupalkin työkalut ylhäältä lukien:</p>
+			<ul>
+				<li><strong>Valinta- ja siirto</strong> valitsee hiirellä klikatun muodon. Mikäli SHIFT on pohjassa, muoto lisätään aikaisempaan valintaan. Kaikkia muotoja voidaan liikuttaa raahamalla niitä hiirellä.</li>
+				<li><strong>Viiva</strong> piirtää uuden viivan klikkaamalla kuvasta viivan alkupistettä, pitämällä hiiren pohjassa ja raahamalla hiiren viivan lopetuspisteeseen.</li>
+				<li><strong>Neliö</strong> piirtää uuden nelikulmion vastaavalla tavalla kuten viivan.</li>
+				<li><strong>Ympyrä</strong> piirtää uuden ellipsin tai ympyrän vastaavalla tavalla kuten viivan.</li>
+				<li><strong>Teksti</strong> Kysyy käyttäjältä tekstin sisällön ja lisää sen valitun kokoisena kuvasta klikattuun paikkaan.</li>
+				<li><strong>Täyttö</strong> Muuttaa valitun muodon ja uusien muotojen täyttöasetusta.</li>
+				<li><strong>Väri</strong> Näyttää valitun värin. Klikkaamalla hiirellä kysyy käyttäjältä uuden värin. Muutettaessa asettaa valittujen muotojen ja uusien muotojen värin.<br/></li>
+				<li><strong>Fonttikoko</strong> Asettaa lisättävien tekstielementtien fonttikoon.</li>
+			</ul>
+			<p>
+			Tiedostojen avaus ja tallennus sekä undo- ja redo-toiminnot löytyvät päävalikosta.
+			</p>
+
+
+			<h2>Ohjelman rakenne</h2>
+			<ul>
+				<li><a href="./javadoc/overview-summary.html">Javadoc-dokumentaatio</a></li>
+			</ul>
+			<p><em>Draw</em>:n käyttöliittymä, piirustus ja piirustuksen muokkaus on pyritty erottelemaan toisistaan model-view-controller-arkkitehtuurin mukaisesti.</p>
+			<p>Luokkajako karkeasti</p>
+			<ul>
+				<li>Käyttöliittymä (<code>gui.</code>)
+				<ul>
+					<li><code>MainMenu</code> päävalikko</li>
+					<li><code>ToolBox</code> työkalupalkki</li>
+					<li><code>DrawGUI</code> koostaa ohjelman graafisen käyttöliittymän</li>
+					<li>Tapahtumakuuntelijat <code>MenuListener</code> ja <code>MouseListener</code></li>
+				</ul>
+				</li>
+
+				<li>Piirustuksen malli ja ohjauslogiikka (<code>logic.</code>)
+				<ul>
+					<li><code>Drawing</code> kuvaa yhtä piirrustusta joka koostuu muodoista</li>
+					<li><code>DrawingController</code> kontrolloi piirrustusta</li>
+					<li><code>Selection</code> kuvaa valintaa joka sisältää eri muotoja</li>
+					<li><code>DrawIO</code> vastaa tiedostojen lukemisesta ja kirjoittamisesta.</li>
+				</ul>
+				</li>
+
+				<li>Piirustuksen sisältämät elementit (<code>shapes.</code>)
+				<ul>
+					<li><code>Shape</code> abstrakti pohjaluokka kaikille muodoille</li>
+					<li><code>FillableShape</code> abstrakti pohjaluokka täytettäville muodoille</li>
+					<li><code>Circle Line Rectangle Text</code></li>
+				</ul>
+				</li>
+
+				<li>Muokkaustapahtumat ja undo sekä redo (<code>actions.</code>)
+				<ul>
+					<li><code>UndoManager</code> vastaa piirustukseen vaikuttavien muutosten tallentamisesta ja undo- sekä redo-toiminnallisuudesta</li>
+					<li><code>DrawAction</code> rajapinta, kuvaa peruutettavaa piirustuksen muokkaustapahtumaa</li>
+					<li><code>AddAction</code>, <code>ColorAction</code>, <code>MoveAction</code>, <code>FillAction</code> vastaavat kukin jotain piirustukseen vaikuttavaa toimintoa ja toteuttavat <code>DrawAction</code>-rajapinnan.</li>
+				</ul>
+				</li>
+
+			</ul>
+
+			<h4>DrawGUI</h4>
+			<p>
+			Ohjelman käyttöliittymä. Koostuu <code>MainMenu</code>-päävalikosta, <code>ToolBox</code>-työkalupalkista ja <code>DrawingContainer</code>:sta joka piirtää editoitavan kuvan näytölle. DrawGUI:lla on kenttänä editoitavaa piirustusta muokkaava DrawingController.
+			</p>
+
+			<h4>Drawing</h4>
+			<p>Kuvaa yksittäistä piirustusta. Koostuu ArrayList-objektista joka sisältää kuvan kaikki muodot niiden lisäysjärjestyksessä. Piirtäessä itsensä piirtää myös sisältämänsä muodot. Piirustuksen tapahtumia kuuntelee sille määritelty <code>MouseListener</code>
+			<ul><li>getShapeAt(Point p) palauttaa pisteen p kohdalla piirustuksessa olevan päälimmäisen muodon</li></ul> </p>
+
+			<h4>DrawingController</h4>
+			<p>Kontrolloi piirustusta. Sisältää kenttänä muokattavan piirustuksen, <code>UndoManager</code>in ja senhetkisen valinnan ja valitun työkalun <code>Tool</code>.</p>
+
+			<ul>
+				<li>newDrawing(Dimension d) luo uuden annetun kokoisen piirustuksen</li>
+				<li>moveSelectedShapes(Point movement) liikuttaa valittuja muotoja haluttuun suuntaan</li>
+				<li>colorSelectedShapes(Color c) asettaa valittujen muotojen värin</li>
+				<li>deleteSelectedShapes() poistaa valitut muodot piirustuksesta </li>
+				<li>...</li>
+			</ul> 
+			<h4>Shape</h4>
+			<p>
+			Kaikkien muotojen abstrakti pohjaluokka. Sisältää tiedon muodon väristä ja hiirellä piirtämisen alkupisteestä ja loppupisteestä. Tietää myös onko valittuna, ja piirtää sen mukaisesti valintaindikaattorin.</p>
+			<ul>
+				<li>getPosition() palauttaa muodon vasemman yläkulman sijainnin suhteessa piirustukseen</li>
+				<li>getSize() palauttaa muodon oikean alakulman sijainnin suhteessa vasemman yläkulman sijaintiin
+				<li>abstract void drawShape(Graphics g) on ainut metodi joka perivien luokkien tulee toteuttaa. Piirtää itse muodon.</li>
+			</ul>
+			<h4>FillableShape</h4>
+			<p>Abstrakti luokka joka kuvaa muotoa joka voidaan täyttää värillä. Alaluokkien tulee toteuttaa kaksi eri piirtofunktiota joita kutsutaan täyttöstatuksesta riippuen.</p>
+			<ul>
+				<li>abstract void drawFilled(Graphics g)</li>
+				<li>abstract void drawNonFilled(Graphics g)</li>
+			</ul>
+
+			<p>
+			<br/>
+			<br/>
+			<br/>
+			</p>
+
+
+
+			<h2>Algoritmit</h2>
+			<p>
+			<em>Draw</em> ei tarvitse itse toteutettuja algoritmeja juuri lainkaan. Piirustus piirretään näytölle käymällä kaikki sen sisältämät muodot läpi ja kutsumalla niiden omaa piirtofunktiota.
+			</p>
+
+
+			<h2>Tietorakenteet</h2>
+			<p>
+			<em>Draw</em> ei sisällä kovinkaan monimutkaisia tietorakenteita. Piirustusta kuvaava luokka Drawing ja valintaa kuvaava Selection ovat molemmat toteutettu sisäiseti Javan ArrayListinä joka sisältää eri muotoja. ArrayListiä käytetään koska sekä kuva että valinta ovat dynaamisia eikä niiden kokoa voida tietää ennalta.
+			</p>
+
+
+
+			<h2>Tiedostot</h2>
+			<p><em>Draw</em> avaa ja tallentaa tiedostot sen omasta yksinkertaisesta tiedostoformaatista.</p>
+			<p>Esimerkkitiedosto:<br/>
+			<code>
+				500,400<br/>
+				line;169,262;153,263;-16777216<br/>
+				circ;352,188;299,231;-16711834;0<br/>
+				rect;443,217;450,242;-13382401;1<br/>
+				text;81,214;228,202;-13382401;12;Tekstiä<br/>
+			</code>
+			</p>
+
+			<p>Tiedoston ensimmäisestä rivistä ilmenee kuvan koko muodossa <code>leveys,korkeus</code>. Siitä eteenpäin jokaisella rivillä on kuvattu yksi Shape-objekti. Rivi on jaettu sarakkeisiin puolipisteellä.
+			</p>
+			<ol>
+				<li>Objektin tyyppi.</li>
+				<li>Muodon ensimmäinen piste muodossa <code>leveys,korkeus</code></li>
+				<li>Muodon toinen piste</li>
+				<li>Muodon väri yhtenä neljätavuisena kokonaislukuna.</li>
+				<li>Täyttö, mikäli muoto on täytettävä tai tekstin tapauksessa fonttikoko</li>
+				<li>Tekstiobjektin sisältämä teksti. Ei voi sisältää puolipisteitä (korvautuvat kysymysmerkeillä.)</li>
+			</ol>
+
+			<h2>Testaus</h2>
+			<p> <em>Draw</em> on niin vahvasti graafiseen käyttöliittymäänsä sidottu ohjelma että suuri osa siitä on mahdotonta testasta kunnolla ohjelmallisesti. Käytännössä kaikki virheet ovat löytyneet käyttämällä ohjelmaa.
+			</p>
+			<p>
+			DrawingControllerin, Drawingin ja Selectionin keskeisiä metodeja on yksikkötestattu luokassa <code>DrawTest</code> JUnitin avulla.
+			</p>
+
+			<h2>Tunnetut puutteet ja viat</h2>
+			<ul>
+				<li>Aikasemmin piirrettyjä muotoja ei voi nostaa uudempien päälle.</li>
+				<li>Suuremman muodon alla olevaa pienempää muotoa ei voi valita siirtämättä ensin suurempaa muotoa pienemmän päältä pois.</li>
+				<li>Valintoja ei voi tallentaa.</li>
+				<li>Täytettävällä muodolla ei voi samaan aikaan olla ääriviivaa ja väriä.</li>
+				<li>Tuki läpinäkyvyydelle puuttuu.</li>
+				<li>Jonkinlainen ohjeita ja infoa näyttävä statusbar olisi hyvä olla olemassa.</li>
+			</ul>
+
+			<h2>Hyvät ja huonot puolet</h2>
+			<p>Hyviä puolia</p>
+			<ul>
+				<li>Looginen ja selkeä käyttöliittymä</li>
+				<li>Käytetty monipuolisesti Javan rajapintaa hyväksi</li>
+				<li>Piirustuksen, käyttöliittymän ja muokkauksen erotus. Helppo laajentaa.</li>
+			</ul>
+			<p>Huonoja puolia</p>
+			<ul>
+				<li>Kankea tiedostoformaatti</li>
+				<li>Valintoja ei voi tallentaa</li>
+				<li>Heikko dokumentointi</li>
+			</ul>
+
+			<h2>Poikkeamat suunnitelmasta</h2>
+			<ul>
+				<li><a href="yleis.html">Yleissuunnitelma</a></li>
+				<li><a href="tekninen.html">Tekninen suunnitelma</a></li>
+			</ul>
+			<p>
+			Ohjelman rakenne vastaa hyvin pitkälti suunniteltua. Suurin yksittäinen poikkeama suunnitelmasta on ohjelman käyttämä tiedostomuoto. Se ei ole suunnitelman mukaisesti SVG vaan ohjelman oma yksinkertainen tekstitiedosto.</p>
+
+			<h2>Toteutunut työjärjestys ja aikataulu</h2>
+			<p>
+			Toteutusjärjestys vastasi pitkälti suunniteltua. Karkeasti:
+			</p>
+			<ul>
+				<li>Yksinkertainen testikäyttöliittymä joka piirtää näytölle jotain</li>
+				<li>Shape abstraktina luokkana ja yksi sen perivä tai toteuttava muoto</li>
+				<li>Drawing-luokka ja sen piirtäminen käyttöliittymään</li>
+				<li>Shape-objektien piirtäminen piirustukseen Drawing-luokan kautta</li>
+				<li>Työkalu jolla voi lisätä hiirellä Shape-olioita kuvaan</li>
+				<li>MainMenu ja ToolBox eri toimintojen valintaan</li>
+				<li>Undo ja redo-mahdollisuus kaikille kuvaan vaikuttaville toiminnoille</li>
+				<li><strong>Checkpoint</strong></li>
+				<li>Ohjelman selkeyttämiseksi erillinen DrawingController-luokka jonka kautta piirustusta muokataan</li>
+				<li>Uuden piirustuksen luominen ja aktiivisen piirustuksen vaihtaminen</li>
+				<li>Tekstin lisäysmahdollisuus</li>
+				<li>FillableShape ja muotojen täyttö</li>
+				<li>Useamman olion valitseminen ja muokkaus</li>
+				<li>Käyttöliittymän viilausta</li>
+				<li>Tallenus ja lataus tiedostosta</li>
+				<li>Testausta ja hienosäätöä</li>
+			</ul>
+
+			<p>
+			Aikaa kului ennen checkpointia noin 15h ja sen jälkeen vähintään kaksinkertainen määrä. Ajankäyttö kaikenkaikkiaan 45-60h.
+			</p>
+
+
+			<h2>Arvio lopputuloksesta</h2>
+			<p>Yleisesti sanottuna olen tyytyväinen lopputulokseen. Käyttöliittymä on ennen kaikkea selkeä ja helppokäyttöinen.</p>
+
+			<p>
+			Luokkajako on onnistunut, tosin muutama metodi voi olla hiukan epäluontevassa paikassa.  Käyttöliittymä on saatu hyvin irti piirustusta kuvaavasta mallista ja sen muokkauksesta. Ohjelmaan on helppo lisätä uusia muotoja ja toiminnallisuutta.
+			</p>
+
+			<p>
+			Yleisesti ohjelmakoodi on selkeää ja helppolukuista mutta esimerkiksi hiirtä kuuntelevassa <code>MouseListener</code>-luokan selkeydessä olisi paljon parannettavaa.
+			</p>
+
+			<p>
+			AWT:n ja Swingin ominaisuuksia on käytetty monipuolisesti hyväksi jolloin on vältytty monen asian itse toteuttamiselta.
+			</p>
+
+			<p>
+			Jos ohjelmaa jatketaan, seuraava ominaisuus on eri muotojen piirtojärjestyksen (kerroksen) muuttaminen ja sen jälkeen pysyvä ryhmittäminen. Seuraavat uudet muodot olisivat useammasta suorasta viivasta koostuva monimutkaisempi viiva ja kulmapisteitä klikkaamalla piirrettävä suljettu monikulmio. Tämän jälkeen tulisi toissijaisen värin valinta ja mahdollisuus muokata ääriviivaa ja täyttöä erikseen. Myös muotojen viivanpaksuuden ja tekstielementtien fonttien muuttaminen olisi helppo lisätä.
+			</p>
+
+			<h2>Kirjallisuusviitteet ja linkit</h2>
+
+			<ul>
+				<li>Käyttöliittymä ja piirtäminen
+				<ul>
+					<li><a href="http://java.sun.com/javase/6/docs/api/">Java Platform SE 6 API Specification</a></li>
+					<li><a href="http://java.sun.com/docs/books/tutorial/uiswing/index.html">Sunin Swing-tutoriaalit</a></li>
+					<li><a href="http://java.sun.com/docs/books/tutorial/2d/">Sunin 2D-grafiikkatutoriaalit</a></li>
+				</ul>
+				</li>
+				<!--
+				<li>Tiedostojen lataaminen ja kirjoittaminen
+				<ul>
+					<li>http://java.sun.com/webservices/reference/tutorials/jaxp/html/sax.html</li>
+				</ul>
+				</li>
+				-->
+				<li>Yleistä
+				<ul>
+					<li><a href="https://noppa.tkk.fi/noppa/kurssi/t-106.1240/luennot">Ohjelmoinnin jatkokurssin T-106.1240 luentokalvot</a></li>
+					<li><a href="http://www.cs.hut.fi/Opinnot/T-106.1240/2010_external/tehtavat_2010.shtml">Ohjelmoinnin jatkokurssin T-106.1240 tehtäväkierrokset</a></li>
+					<li>Lukemattomat Googlen kautta löydetyt foorumit, maililistat ja nettisivut.</li>
+					<!--
+					<li>http://en.wikipedia.org/wiki/Vector_graphics</li>
+					<li>http://en.wikipedia.org/wiki/Scalable_Vector_Graphics</li>
+					<li>http://www.w3.org/TR/SVG11/</li>
+					<li>http://www.w3.org/TR/SVGTiny12/</li>
+					-->
+				</ul>
+				</li>
+				<li>Muuta
+				<ul>
+					<li><a href="http://tango.freedesktop.org/Tango_Desktop_Project">Tango-ikonit</a> (public domain) </li>
+				</ul>
+				</li>
+			</ul>
+
+			<div id="footer">
+				25.4.2010
+				<div class="right">
+					Alex Lagerstedt 69482W
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+

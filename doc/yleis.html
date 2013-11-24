@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<meta name="generator" content="Bluefish 2.0.0" />
+		<meta http-equiv="Content-Type" content=
+		"text/html; charset=utf-8" />
+		<link rel="stylesheet" media="screen" href="tyyli.css" type=
+		"text/css" />
+
+		<title>Draw - Yleissuunnitelma</title>
+	</head>
+
+	<body>
+		<div id="main">
+			<div class="center">
+				T-106.1243 Ohjelmoinnin jatkokurssi L1 (Java) - Projekti
+
+				<h1>Yleissuunnitelma<br/>
+					Piirustusohjelma <em>Draw</em></h1>
+				Alex Lagerstedt | 69482W | EST 3.vsk | 22.2.2010
+			</div>
+
+			<h2>Yleiskuvaus</h2>
+
+			<p><em>Draw</em> on yksinkertainen graafinen, hiirellä
+			käytettävä piirustusohjelma.</p>
+			<p>Ohjelman ominaisuuksia ovat:</p>
+			<ul>
+				<li>Uusien kuvien luominen</li>
+				<li>Editoitavan kuvan tallennus ja tallennettujen kuvien
+				avaaminen</li>
+				<li>Värien valinta</li>
+				<li>Hiirellä piirrettäviä perusmuotoja ainankin
+				<ul>
+					<li>Vapaamuotoinen viiva</li>
+					<li>Ympyrä</li>
+					<li>Ellipsi</li>
+					<li>Suorakulmio</li>
+				</ul>
+				</li>
+
+				<li>Undo ja redo-ominaisuus</li>
+				<li>Mahdollisuus valita aikasemmin tehtyjä muotoja ja muuttaa
+				niiden ominaisuuksia</li>
+				<li>Kuvassa esiintyvien muotojen näkyminen listassa ja niiden
+				järjestyksen (päällekkäisyyden) muuttaminen</li>
+				<li>Muotojen liittäminen erilaisiksi ryhmiksi. (Layerit)</li>
+				<li>Tuki kirjoitetulle tekstille</li>
+			</ul>
+
+			<p>Toteutus tulee olemaan vaativan vaikeustason mukainen.</p>
+
+			<p>Ohjelma tulee olemaan vektorigrafiikkaohjelman tapainen ja
+			se käsittelee eri muotoja erillisinä objekteina jotka pinotaan
+			kaksiulotteiseksi kuvaksi. Vapaasti hiirellä piirrettävät
+			viivat muodostuvat useasta lyhyestä suorasta pätkästä joten
+			esim. <a href=
+				"http://fi.wikipedia.org/wiki/B%C3%A9zier-k%C3%A4yr%C3%A4">Bézier-käyriä</a>
+			ei toteuteta.</p>
+
+			<h2>Käyttöliittymän luonnos</h2>
+
+			<p><em>Draw</em> tulee olemaan kokonaan käytettävissä hiirellä.
+			Yleisimmille komennoille (undo, redo, yms.) toteutetaan myös
+			näppäimistöoikotiet. Alla on karkea kuva ohjelman
+			käyttöliittymästä.</p>
+
+			<p><img src="ui_sketch.png" alt="ui sketch" class=
+			"center" /></p>
+
+			<p>Normaalien valikoiden lisäksi ikkuna jakautuu kahteen osaan.
+			Oikealla puolella näkyy editoitava kuva ja vasemmalla
+			editointityökalut, värit ja kuvan komponentit. Valitun kuvan
+			väriä voi vaihtaa väripainikkeista. Kuvien piirtojärjestystä
+			voi vaihtaa listan alta löytyvillä nosto- ja
+			laskupainikkeilla.</p>
+
+			<h2>Tiedostot ja tiedostoformaatit</h2>
+
+			<p>Ohjelma tulee käyttämään tallennukseen ja lataamiseen
+			avointa vektorikuvien tallentamiseen sunniteltua XML-pohjaista
+			<a href="http://en.wikipedia.org/wiki/SVG">SVG</a>-formaattia.
+			Vain <em>Draw:</em>n tukemat muodot ovat tuettu kuvien
+			latauksessa joten varsin pieni osa standardista on toteutettu.
+			Todennäikösesti <em>Draw</em> ei saa paljoakaan järkevää tietoa
+			ulos muilla kehittyneemmillä ohjelmilla tallennetuista
+			SVG-tiedostoista mutta sen ei tulisi kaatua niitäkään
+			lukiessa.</p>
+
+			<p>Esimerkiksi suorakulmio voi olla tiedostossa kuvattu
+			muodossa:<br />
+			<code>&lt;rect x="1" y="100" width="1198" height="398"
+				fill="none" stroke="blue" stroke-width="2"/&gt;</code></p>
+
+			<h2>Järjestelmätestaussuunnitelma</h2>
+
+			<p><em>Draw:</em>n toteutuksesta sen graafinen käyttöliittymä
+			tulee olemaan suuri osa. Sen testaus ohjelmallisesti on
+			kuitenkin hankalaa. Käyttöliittymään liittyvät virheet pyritään
+			löytämään käyttämällä ohjelmaa monipuolisesti ja erilaisissa
+			tilanteissa.</p>
+
+			<p>Tiedostojen tallennuksessa ja varsinki lataamisessa
+			yksikkötestaus tulee hyödylliseksi. Ohjelma ei saa kaatua
+			virheellisillä SVG-tiedostoilla ja mikäli ne sisältävät
+			komponentteja jota ohjelma ei tue, ne osat jätetään lukematta
+			ja piirtämättä. Ohjelma voi tulostaa varoituksia (muoto
+			kuva-alueen ulkopuolella, yms.) sekä muuta debuggaustietoa
+			stdout-virtaan.</p>
+
+			<div id="footer">
+				22.2.2010
+
+				<div class="right">
+					Alex Lagerstedt 69482W
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,62 @@
+
+body {
+	counter-reset: chapter;
+	background-color: #ddf;
+	/*font-family: sans-serif;*/
+}
+
+#main {
+	background-color: white;
+
+	margin: 50px auto;
+	width: 90%;
+	max-width: 820px;
+	border: 1px solid black;
+	padding: 40px;
+
+	text-align: justify;
+	text-justify: newspaper;
+	line-height: 1.5;
+}
+
+code {
+		color: green;
+}
+
+h1, h2, h3 {
+	color: #2866a2;
+}
+
+h4 {
+	color: green;
+}
+
+h2:before {
+	content: counter(chapter) ". ";
+	counter-increment: chapter;
+}
+
+a {
+	text-decoration: none;
+}
+
+img {
+	border: none;
+}
+
+#footer {
+	margin-top: 100px;
+	font-size: smaller;
+	color: #888;
+}
+
+.right {
+	float: right;
+}
+.center {
+
+	text-align: center;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
